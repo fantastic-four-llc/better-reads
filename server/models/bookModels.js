@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI = DATABASE_URI;
+const MONGO_URI = "mongodb+srv://caheriaguilar:vF6LI280RL8PAAQV@betterreads.ebwmnyp.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose
   .connect(MONGO_URI, {
@@ -16,8 +16,13 @@ mongoose
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema ({
-    title: {type: String,},
-    genre: ,
-    summary: ,
-    review ,
-})
+    title: {type: String, required: true},
+    genre: String,
+    summary: String,
+    review: String,
+});
+
+const Book = mongoose.model('book', bookSchema);
+
+module.exports = Book;
+

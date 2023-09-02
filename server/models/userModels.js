@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI = DATABASE_URI;
+const MONGO_URI = "mongodb+srv://caheriaguilar:vF6LI280RL8PAAQV@betterreads.ebwmnyp.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose
   .connect(MONGO_URI, {
@@ -19,19 +19,22 @@ const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema({
-    username: {type: String, required: true, unique: true},
-    password: {type: String, required: true}
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  library: [
+    {id: { type: Schema.Types.ObjectId, ref: 'book' }}
+  ],
 });
 
-userSchema.pre('save', function(next) {
-    bycript.hash(this.password, SALT_WORK_FACTOR, (err, hash) => {
-        if(err) return next(err);
-        
-        this.password = hash;
+// userSchema.pre('save', function(next) {
+//     bycript.hash(this.password, SALT_WORK_FACTOR, (err, hash) => {
+//         if(err) return next(err);
 
-        return next();
-    })
-});
+//         this.password = hash;
+
+//         return next();
+//     })
+// });
 
 const User = mongoose.model('user', userSchema);
 

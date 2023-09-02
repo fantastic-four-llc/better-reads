@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 
 // require controllers
-// const controller = require('./controllers.js');
+const userController = require('./controllers/userControllers');
 
 const app = express();
 const PORT = 3005;
@@ -11,6 +11,10 @@ const PORT = 3005;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../src')));
+
+app.post('/', userController.createUser,(req, res) => {
+   return res.status(200).json(res.locals.newUser);
+})
 
 // catch all
 app.use('*', (req, res) => {
