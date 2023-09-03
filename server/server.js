@@ -25,7 +25,7 @@ app.post('/login', userController.verifyUser, (req, res) => {
 });
 
 // add book to dashboard
-app.post('/dashboard', bookController.console, bookController.addBook, (req, res) => {
+app.post('/dashboard', bookController.addBook, (req, res) => {
     return res.status(200).json(res.locals.newBook);
 });
 
