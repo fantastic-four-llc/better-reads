@@ -17,6 +17,7 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema ({
     title: {type: String, required: true},
+    author: {type: String, required: true},
     genre: String,
     summary: String,
     review: String,

@@ -30,4 +30,30 @@ userController.createUser = (req, res, next) => {
     
 }
 
+userController.verifyUser = (req, res, next) => {
+    const {username, password} = req.body;
+
+    User.findOne({username})
+    .then(user => {
+        if(user.password === password) {
+            res.locals.user = user;
+            return next();
+        } else {
+            return next({
+                log: "Incorrect username or password in userController.createUser",
+                status: 400,
+                message: {err: 'Incorrect username or password in userController.createUser'},
+            })
+        }
+    })
+    .catch(err => {
+        return next({
+            log: "Error occurred in userController.verifyUser",
+            status: 500,
+            message: {err: 'An error ocurred'},
+        });
+    })
+    
+}
+
 module.exports = userController;

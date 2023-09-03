@@ -1,10 +1,27 @@
 const Book = require('../models/bookModels');
+const path = require('path');
 
 const bookController = {};
 
-bookController.createBook = async (req, res, next) => {
+bookController.console = (req, res, next) => {
+    console.log('entered request')
+    return next();
+}
+
+bookController.addBook = async (req, res, next) => {
     try {
-        const newBook = await Book.create();
+        console.log('hi');
+        const { title, author, genre, summary, review } = req.body;
+        const newBook = await Book.create({
+            title,
+            author,
+            genre,
+            summary,
+            review
+        });
+        console.log(newBook);
+        res.locals.newBook = newBook;
+        return next();
     }
     catch (err) {
         const error = {
@@ -15,3 +32,5 @@ bookController.createBook = async (req, res, next) => {
         return next(error);
     }
 };
+
+module.exports = bookController;
