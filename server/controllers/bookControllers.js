@@ -1,5 +1,6 @@
-const Book = require('../models/bookModels');
 const path = require('path');
+const Book = require('../models/bookModels');
+const User = require('../models/userModels');
 
 const bookController = {};
 
@@ -9,29 +10,30 @@ const bookController = {};
 // }
 
 bookController.addBook = async (req, res, next) => {
-    try {
-        console.log('hi');
-        const { title, author, genre, summary, review } = req.body;
-        console.log(title, author, genre, summary, review);
-        const newBook = await Book.create({
-            title,
-            author,
-            genre,
-            summary,
-            review
-        });
-        console.log(newBook);
-        res.locals.newBook = newBook;
-        return next();
-    }
-    catch (err) {
-        const error = {
-            log: 'Error in createBook controller',
-            status: 500,
-            message: { err: 'Unable to add book. Try again later.' },
-        }
-        return next(error);
-    }
+  try {
+    // const {name} = req.params;
+    const { title, author, genre, summary, review } = req.body;
+    console.log(title, author, genre, summary, review);
+    const newBook = await Book.create({
+      title,
+      author,
+      genre,
+      summary,
+      review,
+    });
+    // * After logging in should user's username be stored as endpoint =>/dashboard/username
+    // const person = await User.findOne({ username: name });
+    // person.library.push(newBook);
+    res.locals.newBook = newBook;
+    return next();
+  } catch (err) {
+    const error = {
+      log: 'Error in createBook controller',
+      status: 500,
+      message: { err: 'Unable to add book. Try again later.' },
+    };
+    return next(error);
+  }
 };
 
 module.exports = bookController;
