@@ -2,14 +2,32 @@ const path = require('path');
 const express = require('express');
 
 // require controllers
-// const controller = require('./controllers.js');
+const userController = require('./controllers/userControllers');
+const bookController = require('./controllers/bookControllers');
+const { restart } = require('nodemon');
 
 const app = express();
 const PORT = 3005;
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../src')));
+
+// create a new user
+app.post('/signup', userController.createUser,(req, res) => {
+   return res.status(200).json(res.locals.newUser);
+});
+
+// login
+app.post('/login', userController.verifyUser, (req, res) => {
+    return res.status(200).json(res.locals.user);
+});
+
+// add book to dashboard
+app.post('/dashboard', bookController.addBook, (req, res) => {
+    return res.status(200).json(res.locals.newBook);
+});
 
 // catch all
 app.use('*', (req, res) => {
