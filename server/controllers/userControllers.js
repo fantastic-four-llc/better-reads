@@ -39,12 +39,12 @@ userController.verifyUser = (req, res, next) => {
     User.findOne({username})
     .then(async user => {
         if(!user) {
-            res.send('Incorrect username.')
+            res.send('Incorrect username or password.')
         } else {
             const isValid = await bcrypt.compare(password, user.password);
 
             if (!isValid) {
-                res.send('Incorrect password.')
+                res.send('Incorrect username or password.')
             } else {
                 res.locals.user = user.username;
                 // console.log("successfully verified user")
