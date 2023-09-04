@@ -1,29 +1,73 @@
+/* eslint-disable no-unused-expressions */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
+import axios from 'axios';
 
-const USER_URL = '';
+export const loginUser = createAsyncThunk('user/login', async data => {
+  try {
+    const response = await axios.post('/login', data);
+    return response.data;
+  } catch (err) {
+    console.log({ error: 'Error in user validation.' });
+  }
+});
+
+export const signupUser = createAsyncThunk('/signup', async data => {
+  try {
+    const response = await axios.post('/signup', data);
+    return response.data;
+  } catch (err) {
+    console.log({ error: 'Error in user validation.' });
+  }
+});
 
 const initialState = {
-  // username:
-  // pw:
+  username: '',
+  failedLogin: false,
+  failedSignup: false,
 };
-
-// export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-//   const response = await axios.get(USER_URL);
-//   return response.data;
-// });
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
-  extraReducers(builder) {
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
-      return action.payload;
-    });
+  reducers: {
+    login: (state, action) => {},
+    logout: (state, action) => {
+      // state.user = null;
+    },
+    signup: (state, action) => {},
+    reload: (state, action) => {
+      // state.failedSignup = false;
+      state.failedLogin = false;
+      console.log("we're in reload");
+    },
+  },
+  extraReducers: builder => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.username = action.payload.username;
+      } else {
+        state.failedLogin = true;
+      }
+    }),
+      // builder.addCase(loginUser.rejected, (state, action) => {
+      //   state.failedLogin = true;
+      // }),
+      builder.addCase(signupUser.fulfilled, (state, action) => {
+        console.log(action);
+        if (action.payload) {
+          state.username = action.payload.username;
+        } else {
+          state.failedSignup = true;
+        }
+      });
+    // builder.addCase(signupUser.rejected, (state, action) => {
+    //   console.log('error');
+    //   state.failedLogin = true;
+    // });
   },
 });
 
-export const selectUser = state => state.users;
+export const { login, logout, signup, reload } = userSlice.actions;
+// export const selectUser = state => state.user.user;
 
 export default userSlice.reducer;
