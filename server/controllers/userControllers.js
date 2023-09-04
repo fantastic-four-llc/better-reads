@@ -1,9 +1,10 @@
 const User = require('../models/userModels');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
 const userController = {};
 
-userController.createUser = (req, res, next) => {
+userController.createUser = async (req, res, next) => {
 
     const { username, password } = req.body;
 
@@ -15,7 +16,9 @@ userController.createUser = (req, res, next) => {
         });
     }
 
-    User.create({ username, password})
+    const hash = await bcrypt.hash(password, 10)
+
+    User.create({ username, password: hash})
     .then(response => {
         res.locals.newUser = response;
         return next();
@@ -34,16 +37,19 @@ userController.verifyUser = (req, res, next) => {
     const {username, password} = req.body;
 
     User.findOne({username})
-    .then(user => {
-        if(user.password === password) {
-            res.locals.user = user;
-            return next();
+    .then(async user => {
+        if(!user) {
+            res.send('Incorrect username.')
         } else {
-            return next({
-                log: "Incorrect username or password in userController.createUser",
-                status: 400,
-                message: {err: 'Incorrect username or password in userController.createUser'},
-            })
+            const isValid = await bcrypt.compare(password, user.password);
+
+            if (!isValid) {
+                res.send('Incorrect password.')
+            } else {
+                res.locals.user = user.username;
+                // console.log("successfully verified user")
+                return next();
+            }
         }
     })
     .catch(err => {
@@ -51,7 +57,7 @@ userController.verifyUser = (req, res, next) => {
             log: "Error occurred in userController.verifyUser",
             status: 500,
             message: {err: 'An error ocurred'},
-        });
+        })
     })
     
 }
