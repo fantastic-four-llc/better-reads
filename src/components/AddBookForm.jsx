@@ -14,20 +14,33 @@ import {
 } from '@mui/material';
 import { addBook } from '../features/librarySlice';
 
+// const sxStyle = {
+//   fontSize: '2rem',
+//   backgroundColor: '',
+//   width: 800,
+//   height: 1000,
+//   border: 'solid 10px black',
+// };
+
 function AddBookForm() {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [genre, setGenre] = useState('');
+  const [summary, setSummary] = useState('');
+  const [review, setReview] = useState(0);
+
   const dispatch = useDispatch();
 
-  const bookData = [
-    {
-      title: 'Harry Potter 5',
-      genre: 'Fantasy',
-      summary: 'You a wizard',
-      rating: 4,
-    },
-  ];
-
   const handleSubmit = e => {
-    dispatch();
+    dispatch(
+      addBook({
+        title,
+        author,
+        genre,
+        summary,
+        review,
+      }),
+    );
   };
 
   return (
@@ -42,39 +55,49 @@ function AddBookForm() {
           }}>
           <FormLabel component='legend'>Title</FormLabel>
           <TextField
-            sx={{ paddingBottom: 2 }}
             required
             name='title'
             variant='outlined'
             placeholder='Harry Potter and The Sorcerers Stone...'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            sx={{ paddingBottom: 2 }}
+          />
+          <FormLabel component='legend'>Author</FormLabel>
+          <TextField
+            required
+            name='author'
+            variant='outlined'
+            placeholder='J.K. Rowling...'
+            value={author}
+            onChange={e => setAuthor(e.target.value)}
+            sx={{ paddingBottom: 2 }}
           />
           <FormLabel component='legend'>Genre</FormLabel>
           <TextField
-            sx={{ paddingBottom: 2 }}
             name='genre'
             variant='outlined'
             placeholder='Fantasy...'
+            value={genre}
+            onChange={e => setGenre(e.target.value)}
+            sx={{ paddingBottom: 2 }}
           />
           <FormLabel component='legend'>Summary</FormLabel>
           <TextField
-            sx={{ paddingBottom: 2 }}
             name='summary'
             variant='outlined'
             placeholder=''
+            value={summary}
+            onChange={e => setSummary(e.target.value)}
+            sx={{ paddingBottom: 2 }}
           />
-          <FormLabel component='legend'>Product</FormLabel>
-          <FormGroup row sx={{ paddingBottom: 2 }}>
-            <FormControlLabel
-              control={<Checkbox name='laptop' value='yes' />}
-              label='Book'
-            />
-            <FormControlLabel
-              control={<Checkbox name='headset' value='yes' />}
-              label='Audiobook'
-            />
-          </FormGroup>
           <Typography component='legend'>Review</Typography>
-          <Rating name='rating' sx={{ paddingBottom: 2 }} />
+          <Rating
+            name='review'
+            value={review}
+            onChange={e => setReview(e.target.value)}
+            sx={{ paddingBottom: 2 }}
+          />
           <Button type='submit' variant='outlined'>
             Submit
           </Button>
