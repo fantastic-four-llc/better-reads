@@ -1,6 +1,11 @@
-const mongoose = require('mongoose');
+const path = require('path');
+const fs = require('fs');
+const secrets = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '../secrets/secrets.json')),
+);
+const MONGO_URI = secrets.mongoDBURI;
 
-const MONGO_URI = 'ADD MONDODB DB LINK'; // use environment variable to add your mongodb link
+const mongoose = require('mongoose');
 
 mongoose
   .connect(MONGO_URI, {
@@ -34,4 +39,15 @@ const userSchema = new Schema({
 
 const User = mongoose.model('user', userSchema);
 
-module.exports = User;
+const bookSchema = new Schema({
+  username: String,
+  title: { type: String, required: true },
+  author: { type: String, required: true },
+  genre: String,
+  summary: String,
+  review: Number,
+});
+
+const Book = mongoose.model('book', bookSchema);
+
+module.exports = { User, Book };
