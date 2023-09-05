@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI =
-  'mongodb+srv://caheriaguilar:vF6LI280RL8PAAQV@betterreads.ebwmnyp.mongodb.net/?retryWrites=true&w=majority';
+const MONGO_URI = 'ADD MONDODB DB LINK'; // use environment variable to add your mongodb link
 
 mongoose
   .connect(MONGO_URI, {
