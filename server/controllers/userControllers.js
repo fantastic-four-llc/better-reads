@@ -35,7 +35,7 @@ userController.createUser = async (req, res, next) => {
 
 userController.verifyUser = (req, res, next) => {
   const { username, password } = req.body;
-  console.log('in verification');
+
   User.findOne({ username })
     .then(async user => {
       if (!user) {
@@ -56,8 +56,7 @@ userController.verifyUser = (req, res, next) => {
         });
       }
       res.locals.user = user.username;
-      res.locals.id = user._id;
-      console.log('successfully verified user');
+      //   console.log("successfully verified user")
       return next();
     })
     .catch(err =>

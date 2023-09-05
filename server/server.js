@@ -30,7 +30,7 @@ app.post(
 //     res.sendFile()
 // );
 
-app.get('/dashboard', bookController.getBooks, (req, res) =>
+app.post('/library', bookController.getBooks, (req, res) =>
   res.status(200).json(res.locals.library),
 );
 
