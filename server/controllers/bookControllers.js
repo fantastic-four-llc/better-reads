@@ -12,9 +12,10 @@ const bookController = {};
 bookController.addBook = async (req, res, next) => {
   try {
     // const {name} = req.params;
-    const { title, author, genre, summary, review } = req.body;
+    const { username, title, author, genre, summary, review } = req.body;
     console.log(title, author, genre, summary, review);
     const newBook = await Book.create({
+      username,
       title,
       author,
       genre,

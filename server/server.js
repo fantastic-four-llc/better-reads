@@ -33,6 +33,7 @@ app.post(
 // add book to dashboard
 app.post(
   '/dashboard',
+  bookController.addBook,
   userController.findUser,
   userController.addBook,
   (req, res) => res.status(200).json(res.locals.currentUser),

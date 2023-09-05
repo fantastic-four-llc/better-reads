@@ -1,6 +1,7 @@
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModels');
+const Book = require('../models/bookModels');
 
 const userController = {};
 
@@ -74,7 +75,7 @@ userController.findUser = async (req, res, next) => {
     if (!user) {
       throw new Error('User was not found!');
     }
-    res.locals.library = user.library;
+    // res.locals.library = user.library;
     return next();
   } catch (err) {
     const error = {
@@ -88,15 +89,23 @@ userController.findUser = async (req, res, next) => {
 
 userController.addBook = async (req, res, next) => {
   try {
-    const { username, book } = req.body;
-    const { library } = res.locals;
-    console.log('library', library, 'book', book);
-    const user = await User.findOneAndUpdate(
-      { username },
-      { library: [...library, book] },
-      { new: true },
-    );
-    console.log('user library', user.library[0]);
+    console.log('adding book');
+    const { username, title, author, genre, summary, review } = req.body;
+
+    const user = await User.findOne({ username });
+    // add book
+
+    user.library.push({ username, title, author, genre, summary, review });
+
+    await user.save();
+
+    console.log('book saved');
+    const newLibrary = await Book.find({ username });
+    console.log('new library', newLibrary, ' user library :', user.library);
+    // console.log(
+    //   'user library',
+    //   user.library.findOne({ _id: '64f68302ea4be5f1e7f84d14' }, { title: 1 }),
+    // );
     if (!user) {
       throw new Error('User was not found!');
     }
