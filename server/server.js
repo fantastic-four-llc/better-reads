@@ -22,7 +22,7 @@ app.post('/signup', userController.createUser, (req, res) =>
 app.post(
   '/login',
   userController.verifyUser,
-  (req, res) => res.status(200).redirect('/dashboard'),
+  (req, res) => res.status(200).json(res.locals),
   //   res.redirect('/dashboard'),
 );
 
@@ -30,7 +30,7 @@ app.post(
 //     res.sendFile()
 // );
 
-app.get('/dashboard', bookController.getBooks, (req, res) =>
+app.post('/library', bookController.getBooks, (req, res) =>
   res.status(200).json(res.locals.library),
 );
 
