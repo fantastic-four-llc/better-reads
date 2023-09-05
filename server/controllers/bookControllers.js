@@ -1,6 +1,5 @@
 const path = require('path');
-const Book = require('../models/bookModels');
-const User = require('../models/userModels');
+const { Book, User } = require('../models/userLibraryModels');
 
 const bookController = {};
 
