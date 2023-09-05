@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI = "mongodb+srv://caheriaguilar:vF6LI280RL8PAAQV@betterreads.ebwmnyp.mongodb.net/?retryWrites=true&w=majority";
-iable
+const MONGO_URI = "ADD DB LINK AS ENV VARIABLE"
+
 mongoose
   .connect(MONGO_URI, {
     // options for the connect method to parse the URI
