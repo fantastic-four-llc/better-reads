@@ -8,12 +8,12 @@ import SignupForm from './SignupForm';
 
 function LoginPage(props) {
   return (
-    // <div >
-    <Routes id='loginContainer' style={styles.loginContainer}>
-      <Route path='/' element={<LoginForm />} />
-      <Route path='/signup' element={<SignupForm />} />
-    </Routes>
-    // {/* </div> */}
+    <div>
+      <Routes id='loginContainer' style={styles.loginContainer}>
+        <Route path='/' element={<LoginForm />} />
+        <Route path='/signup' element={<SignupForm />} />
+      </Routes>
+    </div>
   );
 }
 
