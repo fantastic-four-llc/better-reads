@@ -16,7 +16,7 @@ function LibraryDashboard() {
 
   useEffect(() => {
     dispatch(getBooks(body));
-  }, []);
+  }, [bookData]);
 
   const rows = bookData.map((book, index) => ({
     id: index + 1,
@@ -36,7 +36,7 @@ function LibraryDashboard() {
     { field: 'title', headerName: 'Title', width: 150 },
     { field: 'author', headerName: 'Author', width: 150 },
     { field: 'genre', headerName: 'Genre', width: 150 },
-    { field: 'summary', headerName: 'Summary', width: 500 },
+    { field: 'summary', headerName: 'Summary', width: 150 },
     { field: 'review', headerName: 'Review', width: 150 },
   ];
 

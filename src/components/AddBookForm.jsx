@@ -29,11 +29,15 @@ function AddBookForm() {
   const [summary, setSummary] = useState('');
   const [review, setReview] = useState(0);
 
+  const username = useSelector(state => state.user.username);
+
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
+    e.preventDefault();
     dispatch(
       addBook({
+        username,
         title,
         author,
         genre,
