@@ -22,7 +22,7 @@ app.post('/signup', userController.createUser, (req, res) =>
 app.post(
   '/login',
   userController.verifyUser,
-  (req, res) => res.status(200).redirect('/dashboard'),
+  (req, res) => res.status(200).json(res.locals),
   //   res.redirect('/dashboard'),
 );
 
