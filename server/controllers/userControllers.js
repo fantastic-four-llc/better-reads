@@ -89,27 +89,29 @@ userController.findUser = async (req, res, next) => {
 
 userController.addBook = async (req, res, next) => {
   try {
-    console.log('adding book');
     const { username, title, author, genre, summary, review } = req.body;
-
     const user = await User.findOne({ username });
-    // add book
-
-    user.library.push({ username, title, author, genre, summary, review });
-
-    await user.save();
-
-    console.log('book saved');
-    const newLibrary = await Book.find({ username });
-    console.log('new library', newLibrary, ' user library :', user.library);
-    // console.log(
-    //   'user library',
-    //   user.library.findOne({ _id: '64f68302ea4be5f1e7f84d14' }, { title: 1 }),
-    // );
     if (!user) {
       throw new Error('User was not found!');
     }
-    res.locals.currentUser = user;
+
+    user.library.push({ username, title, author, genre, summary, review });
+    await user.save();
+    // console.log('book saved');
+
+    let newLibrary = await Book.find({ username });
+
+    newLibrary = newLibrary.map(element => ({
+      title: element.title,
+      author: element.author,
+      genre: element.genre,
+      summary: element.summary,
+      review: element.review,
+    }));
+
+    // console.log('new library', newLibrary);
+
+    res.locals.newLibrary = newLibrary;
     return next();
   } catch (err) {
     const error = {

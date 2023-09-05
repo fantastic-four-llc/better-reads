@@ -44,7 +44,7 @@ const userSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       if (action.payload) {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.username = action.payload.username;
       } else {
         state.failedLogin = true;

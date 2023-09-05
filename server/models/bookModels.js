@@ -22,7 +22,7 @@ const bookSchema = new Schema({
   author: { type: String, required: true },
   genre: String,
   summary: String,
-  review: String,
+  review: Number,
 });
 
 const Book = mongoose.model('book', bookSchema);

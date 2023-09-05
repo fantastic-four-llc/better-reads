@@ -30,13 +30,17 @@ app.post(
 //     res.sendFile()
 // );
 
+app.get('/dashboard', bookController.getBooks, (req, res) =>
+  res.status(200).json(res.locals.library),
+);
+
 // add book to dashboard
 app.post(
   '/dashboard',
   bookController.addBook,
   userController.findUser,
   userController.addBook,
-  (req, res) => res.status(200).json(res.locals.currentUser),
+  (req, res) => res.status(200).json(res.locals.newLibrary),
 );
 
 // catch all
