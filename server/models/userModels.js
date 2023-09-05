@@ -13,13 +13,22 @@ mongoose
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err));
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
+// const subSchema = new Schema({
+//   title: { type: String, required: true },
+//   author: { type: String, required: true },
+//   genre: String,
+//   summary: String,
+//   review: Number,
+// });
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   library: [
-    {id: { type: Schema.Types.ObjectId, ref: 'book' }}
+    {
+      id: { type: Schema.Types.ObjectId, ref: 'book' },
+    },
   ],
 });
 

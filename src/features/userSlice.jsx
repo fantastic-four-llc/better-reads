@@ -22,8 +22,10 @@ export const signupUser = createAsyncThunk('/signup', async data => {
 
 const initialState = {
   username: '',
+  userId: '',
   failedLogin: false,
   failedSignup: false,
+  loggedIn: false,
 };
 
 const userSlice = createSlice({
@@ -44,7 +46,9 @@ const userSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       if (action.payload) {
-        state.username = action.payload.username;
+        state.username = action.payload.user;
+        state.userId = action.payload.id;
+        state.loggedIn = true;
       } else {
         state.failedLogin = true;
       }
@@ -53,9 +57,10 @@ const userSlice = createSlice({
       //   state.failedLogin = true;
       // }),
       builder.addCase(signupUser.fulfilled, (state, action) => {
-        console.log(action);
         if (action.payload) {
           state.username = action.payload.username;
+          state.userId = action.payload.id;
+          state.loggedIn = true;
         } else {
           state.failedSignup = true;
         }
