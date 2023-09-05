@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI = "mongodb+srv://caheriaguilar:vF6LI280RL8PAAQV@betterreads.ebwmnyp.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URI =
+  'mongodb+srv://caheriaguilar:vF6LI280RL8PAAQV@betterreads.ebwmnyp.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose
   .connect(MONGO_URI, {
@@ -13,17 +14,17 @@ mongoose
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err));
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-const bookSchema = new Schema ({
-    title: {type: String, required: true},
-    author: {type: String, required: true},
-    genre: String,
-    summary: String,
-    review: String,
+const bookSchema = new Schema({
+  username: String,
+  title: { type: String, required: true },
+  author: { type: String, required: true },
+  genre: String,
+  summary: String,
+  review: Number,
 });
 
 const Book = mongoose.model('book', bookSchema);
 
 module.exports = Book;
-
