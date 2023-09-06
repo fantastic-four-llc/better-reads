@@ -33,10 +33,10 @@ describe('db unit tests', () => {
     it('update book functionality', async () => {});
   });
   afterAll(async () => {
-    // await pool.query('drop table users Cascade');
-    // await pool.query('drop table reviews Cascade');
-    // await pool.query('drop table followers Cascade');
-    // await pool.query('drop table books Cascade');
+    await pool.query('drop table users Cascade');
+    await pool.query('drop table reviews Cascade');
+    await pool.query('drop table followers Cascade');
+    await pool.query('drop table books Cascade');
     await pool.end();
   });
 });
