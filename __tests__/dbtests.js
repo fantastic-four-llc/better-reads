@@ -1,10 +1,11 @@
 const path = require('path');
 require('dotenv').config();
 const dbActions = require('../server/sql/dbActions');
-const { pool } = require('../server/sql/connect');
+const { pool, createTables } = require('../server/sql/connect');
 
 describe('db unit tests', () => {
   beforeAll(async () => {
+    await createTables();
     await pool.query('delete from users where 1=1');
     await pool.query('delete from reviews where 1=1');
     await pool.query('delete from followers where 1=1');
@@ -32,10 +33,10 @@ describe('db unit tests', () => {
     it('update book functionality', async () => {});
   });
   afterAll(async () => {
-    await pool.query('drop table users');
-    await pool.query('drop table reviews');
-    await pool.query('drop table followers');
-    await pool.query('drop table books');
+    await pool.query('drop table users Cascade');
+    await pool.query('drop table reviews Cascade');
+    await pool.query('drop table followers Cascade');
+    await pool.query('drop table books Cascade');
     await pool.end();
   });
 });
