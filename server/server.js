@@ -22,7 +22,7 @@ app.use(express.static(path.resolve(__dirname, '../src')));
 
 // SQL TESTS:
 app.post('/newBook', bookControllerSQL.addBook, (req, res) => {
-  res.status(200).json(res.locals.newBook);
+  return res.status(200).json(res.locals.newBook);
 })
 
 
@@ -30,7 +30,7 @@ app.post('/newBook', bookControllerSQL.addBook, (req, res) => {
 
 // create a new user
 app.post('/signup', userController.createUser, (req, res) =>
-  res.status(200).json(res.locals.newUser),
+  res.status(200).json(res.locals.newUser)
 );
 
 // login

@@ -1,3 +1,4 @@
+
 const path = require('path');
 require('dotenv').config();
 const dbActions = require('../server/sql/dbActions');
@@ -33,4 +34,3 @@ describe('db unit tests', () => {
   afterAll(async () => {
     await pool.end();
   });
-});
