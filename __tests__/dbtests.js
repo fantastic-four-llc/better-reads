@@ -5,11 +5,11 @@ const { pool, createTables } = require('../server/sql/connect');
 
 describe('db unit tests', () => {
   beforeAll(async () => {
+    await pool.query('drop table IF EXISTS users Cascade');
+    await pool.query('drop table IF EXISTS reviews Cascade');
+    await pool.query('drop table IF EXISTS followers Cascade');
+    await pool.query('drop table IF EXISTS books Cascade');
     await createTables();
-    await pool.query('delete from users where 1=1');
-    await pool.query('delete from reviews where 1=1');
-    await pool.query('delete from followers where 1=1');
-    await pool.query('delete from books where 1=1');
   });
 
   describe('SQL unit tests', () => {
@@ -33,16 +33,13 @@ describe('db unit tests', () => {
         genre: 'Fantasy',
       };
       const result = await dbActions.addBook(newbook);
-      book = result.rows[0];
+      book = result;
       book.title = 'Dawnshard';
-      const result2 = await dbActions.updateBook(book.title);
+      const result2 = await dbActions.updateBook(book);
+      expect(result2).toEqual(book);
     });
   });
   afterAll(async () => {
-    await pool.query('drop table users Cascade');
-    await pool.query('drop table reviews Cascade');
-    await pool.query('drop table followers Cascade');
-    await pool.query('drop table books Cascade');
     await pool.end();
   });
 });
