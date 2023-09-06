@@ -25,9 +25,6 @@ app.post('/newBook', bookControllerSQL.addBook, (req, res) => {
   return res.status(200).json(res.locals.newBook);
 })
 
-
-
-
 // create a new user
 app.post('/signup', userControllerSQL.createUser, (req, res) =>
   res.status(200).json(res.locals.newUser)

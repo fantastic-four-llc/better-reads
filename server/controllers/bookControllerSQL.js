@@ -22,6 +22,14 @@ bookControllerSQL.addBook = async (req, res, next) => {
     }
 }
 
+bookControllerSQL.updateBook = async (req, res, next) => {}
+
+bookControllerSQL.getBooks = async (req, res, next) => {}
+
+bookControllerSQL.getBook = async (req, res, next) => {}
+
+bookControllerSQL.deleteBook = async (req, res, next) => {}
+
 
 // book table:
     // book id (serial) [primary key]
