@@ -79,4 +79,5 @@ module.exports = {
     return pool.query(text, params);
   },
   pool: pool,
+  createTables: createTables,
 };
