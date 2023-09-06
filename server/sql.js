@@ -9,7 +9,6 @@ if (process.env.NODE_ENV === 'test') {
 const pool = new Pool({
   connectionString: PG_URL,
 });
-
 dbActions = {};
 //   pool.query(`CREATE TABLE IF NOT EXISTS lifts
 //   (id SERIAL PRIMARY KEY NOT NULL, // they will automatically populate this
