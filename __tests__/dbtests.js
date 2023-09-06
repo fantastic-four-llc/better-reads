@@ -19,18 +19,24 @@ describe('db unit tests', () => {
         author: 'Brandon Sanderson',
         genre: 'Fantasy',
       };
-      result = await dbActions.addBook(
-        newbook.title,
-        newbook.author,
-        newbook.genre,
-      );
+      result = await dbActions.addBook(newbook);
       expect({
         title: result.title,
         author: result.author,
         genre: result.genre,
       }).toEqual(newbook);
     });
-    it('update book functionality', async () => {});
+    it('update book functionality', async () => {
+      const newbook = {
+        title: 'The Way of Kings',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      };
+      const result = await dbActions.addBook(newbook);
+      book = result.rows[0];
+      book.title = 'Dawnshard';
+      const result2 = await dbActions.updateBook(book.title);
+    });
   });
   afterAll(async () => {
     await pool.query('drop table users Cascade');
