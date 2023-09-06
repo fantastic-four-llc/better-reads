@@ -23,6 +23,22 @@ dbActions.getBooks = async () => {
     return result.rows;
 }
 
+// need to destructure to avoid things like bookInfo = {";drop table users;--":"getpwned"}
+dbActions.getBook = async (bookInfo) => {
+    const {title, author, book_id, genre} = bookInfo;
+    const findBook = {title, author, book_id, genre};
+    let query = `select * from lifts where 1 = 1`;
+    let values = [];
+    for (const [key, value] of Object.entries(findBook)) {
+      if (value !== undefined) {
+          query += ` and ${key} = $${values.length + 1}`;
+          values.push(value);
+      }
+    }
+    const result = await pool.query(query, values);
+    return result.rows;
+  };
+
 // UPDATE table_name
 // SET column1 = value1, column2 = value2, ...
 // WHERE some_column = some_value;
