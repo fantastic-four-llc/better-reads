@@ -4,9 +4,9 @@ require('dotenv').config();
 
 let PG_URL;
 if (process.env.NODE_ENV === 'test') {
-  PG_URL = process.env.DATABASE_URL;
-} else {
   PG_URL = process.env.TESTDATABASE_URL;
+} else {
+  PG_URL = process.env.DATABASE_URL;
 }
 // create a new pool here using the connection string above
 
