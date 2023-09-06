@@ -20,9 +20,20 @@ userControllerSQL.createUser = async (req, res, next) => {
     }
 }
 
-userControllerSQL.userAuth = async (username, password) => {
+userControllerSQL.userAuth = async (req, res, next) => {
     console.log('undergoing user authentication');
-    next();
+    const { username, password } = req.body;
+    try {
+        const result = await dbActions.verifyUser(username, password);
+        res.locals.authentication = result;
+        console.log(res.locals.authentication);
+        return next();
+    }
+    catch(err){
+        err = 'error found at userControllerSQL createUser middleware'
+        console.log('err: ', err);
+        return next(err);
+    }
 }
 
 module.exports = userControllerSQL;

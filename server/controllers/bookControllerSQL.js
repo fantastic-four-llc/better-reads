@@ -6,7 +6,7 @@ const bookControllerSQL = {};
 //add book to database
 
 bookControllerSQL.addBook = async (req, res, next) => {
-    console.log('entered addBook controller');
+    console.log('Entered addBook controller');
     // console.log(req.body)
     const { title, author, genre } = req.body;
     console.log({title, author, genre})
@@ -22,7 +22,9 @@ bookControllerSQL.addBook = async (req, res, next) => {
     }
 }
 
-bookControllerSQL.updateBook = async (req, res, next) => {}
+bookControllerSQL.updateBook = async (req, res, next) => {
+    console.log('Entered updateBook controller');
+}
 
 bookControllerSQL.getBooks = async (req, res, next) => {}
 
