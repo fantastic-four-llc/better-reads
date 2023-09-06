@@ -30,7 +30,7 @@ SQL database flow:
 //username = STRING
 //password = STRING
 
-pool.query(`CREATE TABLE IF NOT EXISTS users 
+pool.query(`CREATE TABLE IF NOT EXISTS users
 (user_id SERIAL PRIMARY KEY NOT NULL,
 username VARCHAR(250) NOT NULL UNIQUE,
 password VARCHAR(250) NOT NULL);`);
@@ -41,7 +41,7 @@ password VARCHAR(250) NOT NULL);`);
 // author
 // genre
 
-pool.query(`CREATE TABLE IF NOT EXISTS books 
+pool.query(`CREATE TABLE IF NOT EXISTS books
 (book_id SERIAL PRIMARY KEY NOT NULL,
 title VARCHAR(250) NOT NULL,
 author VARCHAR(250) NOT NULL,
@@ -53,7 +53,7 @@ genre VARCHAR(250) NOT NULL);`);
 // rating
 // review
 
-pool.query(`CREATE TABLE IF NOT EXISTS reviews 
+pool.query(`CREATE TABLE IF NOT EXISTS reviews
 (review_id SERIAL PRIMARY KEY NOT NULL,
 user_id INT NOT NULL
 book_id INT NOT NULL
@@ -66,7 +66,7 @@ FOREIGN KEY(book_id) REFERENCES books(book_id));`);
 // user1 id [foreign ]
 // user2 id [foreign ]
 
-pool.query(`CREATE TABLE IF NOT EXISTS followers 
+pool.query(`CREATE TABLE IF NOT EXISTS followers
 (follower_id SERIAL PRIMARY KEY NOT NULL,
 user1_id INT NOT NULL
 user2_id INT NOT NULL
