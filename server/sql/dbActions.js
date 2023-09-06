@@ -4,7 +4,7 @@ dbActions = {};
 //get book?
 
 dbActions.addBook = async (bookInfo) => {
-    const { title, author, genre } = bookInfo;
+  const { title, author, genre } = bookInfo;
   const values = [title, author, genre];
   const query = `INSERT INTO books (title, author, genre)
     VALUES ($1, $2, $3)
@@ -36,7 +36,7 @@ dbActions.getBooks = async () => {
 //update book
 // req.body - book id
 dbActions.updateBook = async (bookInfo) => { //Update author, genre, or title
-const { book_id, title, author, genre } = bookInfo;
+    const { book_id, title, author, genre } = bookInfo;
     const query = `UPDATE books
     SET title = $2, author = $3, genre = $4
     WHERE book_id = $1
@@ -67,13 +67,7 @@ dbActions.deleteBook = async (book) => {
 //add Profile //login functionality? //pass in library or saved books?
 dbActions.createUser = async (accountInfo) => {
     const {username, password} = accountInfo
-    if (!username || !password) {
-        return {
-          log: 'Missing username or password in userController.createUser',
-          status: 400,
-          message: { err: 'An error ocurred' },
-        };
-    }
+
     const hash = await bcrypt.hash(password, 10);
 
     const values = [username, hash];
@@ -87,12 +81,8 @@ dbActions.createUser = async (accountInfo) => {
 
 // login (verify user) ***
 // returns userID for success, nothing for failure
-dbActions.verifyUser = async (username, password) => {
-    if (!username || !password) {
-        console.log("Missing username and/or password")
-        return;
-    }
-
+dbActions.verifyUser = async (accountInfo) => {
+    const { username, password } = accountInfo;
     const values = [username];
 
     const query = `SELECT user_id, password FROM users
@@ -126,7 +116,8 @@ dbActions.getUsers = async () => {
 }
 
 //add review ***
-dbActions.addReview = async (user_id, book_id, rating, review) => {
+dbActions.addReview = async (reviewInfo) => {
+    const { user_id, book_id, rating, review } = reviewInfo;
     const values = [user_id, book_id, rating, review];
     // if user_id, book_id don't match the user/book databases, will throw error?
     const query = `INSERT INTO reviews (user_id, book_id, rating, review)
@@ -142,11 +133,11 @@ dbActions.addReview = async (user_id, book_id, rating, review) => {
 
 
 //STRETCH:
+//add follower
 //get review
 //delete profile
 //delete review
 //search profile 
-//add follower
 //unfollow
 //update profile 
 //edit review
