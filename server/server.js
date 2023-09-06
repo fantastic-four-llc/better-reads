@@ -29,7 +29,7 @@ app.post('/newBook', bookControllerSQL.addBook, (req, res) => {
 
 
 // create a new user
-app.post('/signup', userController.createUser, (req, res) =>
+app.post('/signup', userControllerSQL.createUser, (req, res) =>
   res.status(200).json(res.locals.newUser)
 );
 
