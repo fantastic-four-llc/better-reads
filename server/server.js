@@ -75,6 +75,7 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
+const testapp = app.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
 });
+module.exports = testapp;
