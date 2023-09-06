@@ -22,7 +22,13 @@ userControllerSQL.createUser = async (req, res, next) => {
 
 userControllerSQL.userAuth = async (username, password) => {
     console.log('undergoing user authentication');
-    next();
+    const { username, password } = req.body;
+    try {
+        const result = await dbActions.verifyUser(username, password);
+        res.locals.authentication = result;
+        console.log(res.locals.authentication);
+        return next();
+    }
 }
 
 module.exports = userControllerSQL;
