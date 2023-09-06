@@ -1,4 +1,3 @@
-
 const path = require('path');
 require('dotenv').config();
 const dbActions = require('../server/sql/dbActions');
@@ -30,7 +29,13 @@ describe('db unit tests', () => {
         genre: result.genre,
       }).toEqual(newbook);
     });
+    it('update book functionality', async () => {});
   });
   afterAll(async () => {
+    await pool.query('drop table users');
+    await pool.query('drop table reviews');
+    await pool.query('drop table followers');
+    await pool.query('drop table books');
     await pool.end();
   });
+});
