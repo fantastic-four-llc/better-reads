@@ -8,7 +8,7 @@ const userController = require('./controllers/userControllers');
 const bookController = require('./controllers/bookControllers');
 
 // SQL controllers
-// const userControllerSQL = require('./controllers/userControllerSQL');
+const userControllerSQL = require('./controllers/userControllerSQL');
 const bookControllerSQL = require('./controllers/bookControllerSQL');
 
 
@@ -24,9 +24,6 @@ app.use(express.static(path.resolve(__dirname, '../src')));
 app.post('/newBook', bookControllerSQL.addBook, (req, res) => {
   return res.status(200).json(res.locals.newBook);
 })
-
-
-
 
 // create a new user
 app.post('/signup', userControllerSQL.createUser, (req, res) =>
