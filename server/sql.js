@@ -4,7 +4,10 @@ const PG_URL = process.env.DATABASE_URL;
 const pool = new Pool({
     connectionString: PG_URL,
 });
-dbActions = {};
+
+dbActions = {
+    
+};
 //   pool.query(`CREATE TABLE IF NOT EXISTS lifts 
 //   (id SERIAL PRIMARY KEY NOT NULL, // they will automatically populate this
 //   lift VARCHAR(250) NOT NULL, 
