@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const MONGO_URI =
-  'mongodb+srv://nate:0812@betterreads.rwz5mua.mongodb.net/?retryWrites=true&w=majority';
+'mongodb+srv://nate:0812@betterreads.rwz5mua.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose
   .connect(MONGO_URI, {
