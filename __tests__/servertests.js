@@ -6,7 +6,6 @@ const server = 'http://localhost:3005';
 const db = require('../server/sql/connect');
 require('dotenv').config();
 
-
 describe('server unit tests', () => {
   beforeAll(async () => {
     await pool.query('delete from users where 1=1');
@@ -23,8 +22,5 @@ describe('server unit tests', () => {
           .expect(200, done);
       });
     });
-  });
-  afterAll(done => {
-    db.end().then(done());
   });
 });

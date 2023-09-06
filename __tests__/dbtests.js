@@ -26,9 +26,10 @@ describe('db unit tests', () => {
         genre: result.genre,
       }).toEqual(newbook);
     });
+
     it('update book functionality', async () => {
       const newbook = {
-        title: 'The Way of Kings',
+        title: 'Words of Radiance',
         author: 'Brandon Sanderson',
         genre: 'Fantasy',
       };
@@ -37,6 +38,19 @@ describe('db unit tests', () => {
       book.title = 'Dawnshard';
       const result2 = await dbActions.updateBook(book);
       expect(result2).toEqual(book);
+    });
+
+    it('delete book functionality', async () => {
+      const newbook = {
+        title: 'Oathbringer',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      };
+      const result = await dbActions.addBook(newbook);
+      expect(result.book_id).not.toEqual(undefined);
+      const result2 = await dbActions.deleteBook(result);
+      const result3 = await dbActions.getBook(result);
+      expect(result3).toEqual(undefined);
     });
   });
   afterAll(async () => {
