@@ -70,9 +70,9 @@ const createTables = async () => {
     console.error('Failed to create tables:', err);
   }
 };
-
-createTables();
-
+if (process.env.NODE_ENV !== 'test') {
+  createTables();
+}
 module.exports = {
   query: (text, params) => {
     console.log('executed query', text);
