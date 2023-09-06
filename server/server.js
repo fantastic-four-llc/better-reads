@@ -1,10 +1,17 @@
 const path = require('path');
 const express = require('express');
 
+
 // require controllers
 const { restart } = require('nodemon');
 const userController = require('./controllers/userControllers');
 const bookController = require('./controllers/bookControllers');
+
+// SQL controllers
+// const userControllerSQL = require('./controllers/userControllerSQL');
+const bookControllerSQL = require('./controllers/bookControllerSQL');
+
+
 
 const app = express();
 const PORT = 3005;
@@ -12,6 +19,15 @@ const PORT = 3005;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../src')));
+
+
+// SQL TESTS:
+app.post('/newBook', bookControllerSQL.addBook, (req, res) =>
+  res.status(200).json(res.locals.newBook),
+)
+
+
+
 
 // create a new user
 app.post('/signup', userController.createUser, (req, res) =>
