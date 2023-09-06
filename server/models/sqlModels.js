@@ -16,24 +16,6 @@ const pool = new Pool({
   connectionString: PG_URL
 });
 
-// TABLE SCHEMAS:
-// user table:
-    // user_id [primary key]
-    // username = STRING 
-    // password = STRING
-// book table:
-    // book id (serial) [primary key]
-    // title
-    // author
-    // genre
-// review table (JOIN between books and users)
-    // user id [foreign key]
-    // book id [foreign key]
-    // rating
-    // review
-// follower table (JOIN between users and users)
-    // user1 id [foreign key]
-    // user2 id [foreign key]
 
 const createTables = async () => {
     try {
@@ -71,6 +53,25 @@ const createTables = async () => {
     }
 };
 
+// TABLE SCHEMAS:
+// user table:
+    // user_id [primary key]
+    // username = STRING 
+    // password = STRING
+// book table:
+    // book id (serial) [primary key]
+    // title
+    // author
+    // genre
+// review table (JOIN between books and users)
+    // user id [foreign key]
+    // book id [foreign key]
+    // rating
+    // review
+// follower table (JOIN between users and users)
+    // user1 id [foreign key]
+    // user2 id [foreign key]
+    
 createTables();
 
 module.exports = {
