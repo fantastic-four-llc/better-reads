@@ -19,3 +19,10 @@ userControllerSQL.createUser = async (req, res, next) => {
         return next(err);
     }
 }
+
+userControllerSQL.userAuth = async (username, password) => {
+    console.log('undergoing user authentication');
+    next();
+}
+
+module.exports = userControllerSQL;
