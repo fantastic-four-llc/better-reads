@@ -7,12 +7,6 @@ const db = require('../server/sql/connect');
 require('dotenv').config();
 
 describe('server unit tests', () => {
-  beforeAll(async () => {
-    await pool.query('delete from users where 1=1');
-    await pool.query('delete from reviews where 1=1');
-    await pool.query('delete from followers where 1=1');
-    await pool.query('delete from books where 1=1');
-  });
   describe('/', () => {
     describe('GET', () => {
       it('responds with 200 satus and text/html content type', done => {
