@@ -74,8 +74,8 @@ const createTables = async () => {
 createTables();
 
 module.exports = {
-  query: (text, params, callback) => {
+  query: (text, params) => {
     console.log('executed query', text);
-    return pool.query(text, params, callback);
+    return pool.query(text, params);
   }
 };
