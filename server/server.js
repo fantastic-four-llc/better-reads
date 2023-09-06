@@ -8,7 +8,7 @@ const userController = require('./controllers/userControllers');
 const bookController = require('./controllers/bookControllers');
 
 // SQL controllers
-// const userControllerSQL = require('./controllers/userControllerSQL');
+const userControllerSQL = require('./controllers/userControllerSQL');
 const bookControllerSQL = require('./controllers/bookControllerSQL');
 
 
