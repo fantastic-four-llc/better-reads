@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs')
 dbActions = {};
 //get book?
 
-dbActions.addBook = async (title, author, genre) => {
+dbActions.addBook = async (bookInfo) => {
+    const { title, author, genre } = bookInfo;
   const values = [title, author, genre];
   const query = `INSERT INTO books (title, author, genre)
     VALUES ($1, $2, $3)
@@ -34,13 +35,13 @@ dbActions.getBooks = async () => {
 
 //update book
 // req.body - book id
-dbActions.updateBook = async (book_id, title, author, genre) => { //Update author, genre, or title
-    const values = [book_id, title, author, genre];
+dbActions.updateBook = async (bookInfo) => { //Update author, genre, or title
+const { book_id, title, author, genre } = bookInfo;
     const query = `UPDATE books
     SET title = $2, author = $3, genre = $4
     WHERE book_id = $1
     RETURNING book_id, title, author, genre;`;
-    const result = await db.query(query, values);
+    const result = await db.query(query, [book_id, title, author, genre]);
     // console.log('response: ', result);
     // console.log('response type: ', typeof result);
     // console.log('response.rows: ', result.rows);
@@ -49,7 +50,8 @@ dbActions.updateBook = async (book_id, title, author, genre) => { //Update autho
 }
 
 //delete book
-dbActions.deleteBook = async (book_id) => {
+dbActions.deleteBook = async (book) => {
+    const {book_id} = book;
     const values = [book_id];
     const query = `DELETE from books
     WHERE book_id = $1;`;
@@ -63,7 +65,8 @@ dbActions.deleteBook = async (book_id) => {
 }
 //*profile handling
 //add Profile //login functionality? //pass in library or saved books?
-dbActions.createUser = async (username, password) => {
+dbActions.createUser = async (accountInfo) => {
+    const {username, password} = accountInfo
     if (!username || !password) {
         return {
           log: 'Missing username or password in userController.createUser',
@@ -139,14 +142,14 @@ dbActions.addReview = async (user_id, book_id, rating, review) => {
 
 
 //STRETCH:
+//get review
+//delete profile
+//delete review
 //search profile 
 //add follower
 //unfollow
-//edit review
-//get review
-//delete review
 //update profile 
-//delete profile
+//edit review
 
 
 dbActions
