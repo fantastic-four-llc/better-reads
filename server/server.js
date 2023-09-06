@@ -20,11 +20,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../src')));
 
-
 // SQL TESTS:
-app.post('/newBook', bookControllerSQL.addBook, (req, res) =>
-  res.status(200).json(res.locals.newBook),
-)
+app.post('/newBook', bookControllerSQL.addBook, (req, res) => {
+  res.status(200).json(res.locals.newBook);
+})
 
 
 
