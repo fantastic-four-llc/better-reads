@@ -21,8 +21,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../src')));
 
 // SQL TESTS:
-app.post('/newBook', bookControllerSQL.addBook, (req, res) => {
+app.post('/books', bookControllerSQL.addBook, (req, res) => {
   return res.status(200).json(res.locals.newBook);
+});
+app.get('/books', bookControllerSQL.getBook, (req, res) => {
+  return res.status(200).json(res.locals.foundBook);
+})
+app.get('/books/all', bookControllerSQL.getBooks, (req, res) => {
+  return res.status(200).json(res.locals.allBooks);
+})
+app.patch('/books', bookControllerSQL.updateBook, (req, res) => {
+  return res.status(200).json(res.locals.updatedBook);
+})
+app.delete('/books', bookControllerSQL.deleteBook, (req, res) => {
+  return res.status(200).json(res.locals.deletedBook);
 })
 
 // create a new user

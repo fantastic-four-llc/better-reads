@@ -7,11 +7,8 @@ const bookControllerSQL = {};
 
 bookControllerSQL.addBook = async (req, res, next) => {
     console.log('Entered addBook controller');
-    // console.log(req.body)
-    const { title, author, genre } = req.body;
-    console.log({title, author, genre})
     try {
-        const result = await dbActions.addBook(title, author, genre);
+        const result = await dbActions.addBook(req.body); // should grab title, author, genre
         res.locals.newBook = result;
         console.log(res.locals.newBook);
         return next();
@@ -24,13 +21,59 @@ bookControllerSQL.addBook = async (req, res, next) => {
 
 bookControllerSQL.updateBook = async (req, res, next) => {
     console.log('Entered updateBook controller');
+    try {
+        const result = await dbActions.updateBook(req.body); // should grab book_id, title, author, genre
+        res.locals.updatedBook = result;
+        console.log('updated book: ', res.locals.updatedBook);
+        return next();
+    }
+    catch(err){
+        console.log('err: ', err);
+        return next(err);
+    }
 }
 
-bookControllerSQL.getBooks = async (req, res, next) => {}
+bookControllerSQL.getBooks = async (req, res, next) => {
+    console.log('Entered getBooks controller');
+    try {
+        const result = await dbActions.getBooks();
+        res.locals.allBooks = result;
+        console.log('all books: ', res.locals.allBooks);
+        return next();
+    }
+    catch(err){
+        console.log('err: ', err);
+        return next(err);
+    }
+}
 
-bookControllerSQL.getBook = async (req, res, next) => {}
+bookControllerSQL.getBook = async (req, res, next) => {
+    console.log('Entered getBook controller');
+    try {
+        const result = await dbActions.getBook(req.body); // should grab title, author, book_id, genre
+        res.locals.foundBook = result;
+        console.log('found book: ', res.locals.foundBook);
+        return next();
+    }
+    catch(err){
+        console.log('err: ', err);
+        return next(err);
+    }
+}
 
-bookControllerSQL.deleteBook = async (req, res, next) => {}
+bookControllerSQL.deleteBook = async (req, res, next) => {
+    console.log('Entered deleteBook controller');
+    try {
+        const result = await dbActions.deleteBook(req.body); // should grab book_id
+        res.locals.deletedBook = result;
+        console.log('deleted book: ', res.locals.deletedBook);
+        return next();
+    }
+    catch(err){
+        console.log('err: ', err);
+        return next(err);
+    }
+}
 
 
 // book table:
