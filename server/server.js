@@ -27,9 +27,6 @@ app.post('/books', bookControllerSQL.addBook, (req, res) => {
 app.get('/books', bookControllerSQL.getBook, (req, res) => {
   return res.status(200).json(res.locals.foundBook);
 })
-app.get('/books/all', bookControllerSQL.getBooks, (req, res) => {
-  return res.status(200).json(res.locals.allBooks);
-})
 app.patch('/books', bookControllerSQL.updateBook, (req, res) => {
   return res.status(200).json(res.locals.updatedBook);
 })

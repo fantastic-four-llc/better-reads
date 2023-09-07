@@ -1,1 +1,3 @@
-const db = require('../models/sqlModels');
+const dbActions = require('../sql/dbActions');
+
+const reviewControllerSQL = {};
