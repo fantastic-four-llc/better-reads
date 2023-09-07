@@ -1,9 +1,6 @@
-// const db = require('../models/sqlModels')
 const dbActions = require('../sql/dbActions');
 
 const bookControllerSQL = {};
-
-//add book to database
 
 bookControllerSQL.addBook = async (req, res, next) => {
     console.log('Entered addBook controller');
@@ -33,24 +30,10 @@ bookControllerSQL.updateBook = async (req, res, next) => {
     }
 }
 
-bookControllerSQL.getBooks = async (req, res, next) => {
-    console.log('Entered getBooks controller');
-    try {
-        const result = await dbActions.getBooks();
-        res.locals.allBooks = result;
-        console.log('all books: ', res.locals.allBooks);
-        return next();
-    }
-    catch(err){
-        console.log('err: ', err);
-        return next(err);
-    }
-}
-
 bookControllerSQL.getBook = async (req, res, next) => {
     console.log('Entered getBook controller');
     try {
-        const result = await dbActions.getBook(req.body); // should grab title, author, book_id, genre
+        const result = await dbActions.getBook(req.query); // should grab title, author, book_id, genre
         res.locals.foundBook = result;
         console.log('found book: ', res.locals.foundBook);
         return next();
