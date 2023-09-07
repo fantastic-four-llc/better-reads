@@ -19,7 +19,9 @@ describe('db unit tests', () => {
         author: 'Brandon Sanderson',
         genre: 'Fantasy',
       };
+
       result = await dbActions.addBook(newbook);
+
       expect({
         title: result.title,
         author: result.author,
@@ -33,9 +35,11 @@ describe('db unit tests', () => {
         author: 'Brandon Sanderson',
         genre: 'Fantasy',
       };
+
       const result = await dbActions.addBook(newbook);
       book = result;
       book.title = 'Dawnshard';
+
       const result2 = await dbActions.updateBook(book);
       expect(result2).toEqual(book);
     });
@@ -46,12 +50,77 @@ describe('db unit tests', () => {
         author: 'Brandon Sanderson',
         genre: 'Fantasy',
       };
+
       const result = await dbActions.addBook(newbook);
       expect(result.book_id).not.toEqual(undefined);
+
       const result2 = await dbActions.deleteBook(result);
       const result3 = await dbActions.getBook(result);
-      expect(result3).toEqual(undefined);
+      expect(result3[0]).toEqual(undefined);
     });
+
+    it('testing for sql injection on getbook', async () => {
+      const normalbook = {
+        title: 'Rhythm of War',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      };
+
+      await dbActions.addBook(normalbook);
+
+      const maliciousbook = {
+        title: 'Rhythm of War',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+        '; drop table books;--': '; drop table books;--Get ReKt',
+      };
+
+      result = await dbActions.getBook(maliciousbook);
+      expect(result[0]).toEqual({ ...normalbook, book_id: result[0].book_id });
+    });
+
+    it('testing getting book by author', async () => {
+      const bookquery = { author: 'Brandon Sanderson' };
+
+      await dbActions.addBook({
+        title: 'Name of the Wind',
+        author: 'Patrick Rothfuss',
+        genre: 'Fantasy',
+      });
+      await dbActions.addBook({
+        title: 'Words of Radiance',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      });
+
+      const result = await dbActions.getBook(bookquery);
+
+      expect(result[0]).toEqual({
+        book_id: 1,
+        title: 'The Way of Kings',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      });
+      expect(result[1]).toEqual({
+        book_id: 2,
+        title: 'Dawnshard',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      });
+      expect(result[2]).toEqual({
+        book_id: 4,
+        title: 'Rhythm of War',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      });
+      expect(result[3]).toEqual({
+        book_id: 6,
+        title: 'Words of Radiance',
+        author: 'Brandon Sanderson',
+        genre: 'Fantasy',
+      });
+    });
+
     it('test create new user and verify user', async () => {
       const newuser = {
         username: 'Nate',
@@ -64,6 +133,7 @@ describe('db unit tests', () => {
       expect(result2).not.toEqual(undefined);
     });
   });
+
   afterAll(async () => {
     await pool.end();
   });
