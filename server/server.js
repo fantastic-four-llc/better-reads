@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../src')));
 
 // SQL TESTS:
+// BOOKS:
 app.post('/books', bookControllerSQL.addBook, (req, res) => {
   return res.status(200).json(res.locals.newBook);
 });
@@ -33,11 +34,20 @@ app.patch('/books', bookControllerSQL.updateBook, (req, res) => {
 app.delete('/books', bookControllerSQL.deleteBook, (req, res) => {
   return res.status(200).json(res.locals.deletedBook);
 })
-
-// create a new user
+// USERS:
 app.post('/signup', userControllerSQL.createUser, (req, res) =>
   res.status(200).json(res.locals.newUser)
 );
+app.post('/login', userControllerSQL.verifyUser, (req, res) =>
+  res.status(200).json(res.locals.userID)
+);
+
+
+// TO DO FOR MOIZ:
+// MAKE ROUTE FOR GET ALL USERS
+// MAKE ROUTE FOR ADD REVIEW
+// MAKE ROUTE FOR DELETE REVIEW
+// MAKE ROUTE FOR GET REVIEW BY BOOK/USER
 
 // login
 app.post(
