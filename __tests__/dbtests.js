@@ -52,6 +52,17 @@ describe('db unit tests', () => {
       const result3 = await dbActions.getBook(result);
       expect(result3).toEqual(undefined);
     });
+    it('test create new user and verify user', async () => {
+      const newuser = {
+        username: 'Nate',
+        password: 'hunter2',
+      };
+      const result = await dbActions.createUser(newuser);
+      expect(result.username).toEqual(newuser.username);
+      expect(result.password).not.toEqual(newuser.password);
+      const result2 = await dbActions.verifyUser(newuser);
+      expect(result2).not.toEqual(undefined);
+    });
   });
   afterAll(async () => {
     await pool.end();
