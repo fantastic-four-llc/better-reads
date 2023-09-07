@@ -76,7 +76,7 @@ dbActions.deleteBook = async book => {
   // console.log('response type: ', typeof result);
   // console.log('response.rows: ', result.rows);
   // console.log('response.rows[0]: ', result.rows[0]);
-  return `${values} has been deleted.`;
+  return result.rows[0];
 };
 //*profile handling
 //add Profile //login functionality? //pass in library or saved books?
