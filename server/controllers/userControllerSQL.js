@@ -25,8 +25,16 @@ userControllerSQL.userAuth = async (req, res, next) => {
     const { username, password } = req.body;
     try {
         const result = await dbActions.verifyUser(username, password);
-        res.locals.authentication = result;
-        console.log(res.locals.authentication);
+        if (!result){ // username not found or password invalid
+            const err = ({
+                log: 'Username/password not found',
+                status: 404,
+                message: { err: 'Username/password not found' },
+            });
+            return next(err);
+        }
+        res.locals.userID = result;
+        console.log(res.locals.userID);
         return next();
     }
     catch(err){

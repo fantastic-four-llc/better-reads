@@ -70,18 +70,20 @@ dbActions.verifyUser = async accountInfo => {
     WHERE username = $1`;
   const result = await db.query(query, values);
   if (result.rows.length === 0) {
-    console.log('Username not found.');
-    return;
+    console.log('Username/password incorrect!');
+    return; // returns nothing if no match found
   }
   const userID = result.rows[0].user_id;
   const dbPassword = result.rows[0].password;
   const isValid = await bcrypt.compare(password, dbPassword);
+
   if (isValid) {
     console.log('Username/password match!');
     return userID;
+
   } else {
-    console.log('Username/password mismatch!');
-    return;
+    console.log('Username/password incorrect!');
+    return; // returns nothing if password not correct
   }
 };
 
